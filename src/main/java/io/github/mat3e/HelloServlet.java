@@ -14,23 +14,30 @@ import java.io.IOException;
 
 public class HelloServlet extends HttpServlet {
 
-    private final Service service;
+    private HelloService service;
+
+    private static final String NAME_PARAM="name";
+    private static final String LANG_PARAM="lang";
+    private final Logger logger = LoggerFactory.getLogger(HelloServlet.class);
+
+
 
     @SuppressWarnings("unused")
-    public HelloServlet() {
-        this(new Service());
+    public HelloServlet()
+    {
+        this(new HelloService());
     }
 
-    public HelloServlet(Service service) {
+    public HelloServlet(HelloService service)
+    {
         this.service = service;
     }
 
-    private final Logger logger = LoggerFactory.getLogger(HelloServlet.class);
-    protected final String QUERY = "name";
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.info("Request poszedł");
-        resp.getWriter().println(service.ustalPowitanie(req.getParameter(QUERY)));
+        logger.info("Request poszedł ");
+        String name=req.getParameter(NAME_PARAM);
+        String lang=req.getParameter(LANG_PARAM);
+        resp.getWriter().write(service.ustalPowitanie(name,lang));
     }
 }

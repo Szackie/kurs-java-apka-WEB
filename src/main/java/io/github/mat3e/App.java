@@ -4,8 +4,8 @@ import org.eclipse.jetty.annotations.AnnotationConfiguration;
 import org.eclipse.jetty.plus.webapp.EnvConfiguration;
 import org.eclipse.jetty.plus.webapp.PlusConfiguration;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.util.component.LifeCycle;
 import org.eclipse.jetty.webapp.*;
-import org.slf4j.LoggerFactory;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -28,6 +28,13 @@ public class App {
 //        webapp.addServlet(HelloServlet.class,"/api/*");
         var server = new Server(8080);
         server.setHandler(webapp);
+
+        server.addLifeCycleListener(new LifeCycle.Listener(){
+            @Override
+            public void lifeCycleStopped(LifeCycle event) {
+                HibernateUtil.close();
+            }
+        });
 
         server.start();
         server.join();

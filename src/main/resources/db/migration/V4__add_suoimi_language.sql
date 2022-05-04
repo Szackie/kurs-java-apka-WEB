@@ -1,0 +1,1 @@
+INSERT INTO languages (welcomeMsg,code) VALUES ('*halo po finsku*', 'suo');
