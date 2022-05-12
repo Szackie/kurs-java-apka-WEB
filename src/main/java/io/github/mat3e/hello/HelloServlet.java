@@ -1,4 +1,4 @@
-package io.github.mat3e;
+package io.github.mat3e.hello;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "nazwaSerwletu", urlPatterns = {"/api/*"})
+@WebServlet(name = "Servlet powitania", urlPatterns = {"/api/*"})
 
 public class HelloServlet extends HttpServlet {
 
@@ -19,8 +19,6 @@ public class HelloServlet extends HttpServlet {
     private static final String NAME_PARAM="name";
     private static final String LANG_PARAM="lang";
     private final Logger logger = LoggerFactory.getLogger(HelloServlet.class);
-
-
 
     @SuppressWarnings("unused")
     public HelloServlet()
@@ -35,7 +33,7 @@ public class HelloServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.info("Request poszedł ");
+        logger.info("Request goes " + getServletInfo());
         String name=req.getParameter(NAME_PARAM);
         String lang=req.getParameter(LANG_PARAM);
         resp.getWriter().write(service.ustalPowitanie(name,lang));

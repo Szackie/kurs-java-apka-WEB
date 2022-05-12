@@ -1,4 +1,4 @@
-package io.github.mat3e;
+package io.github.mat3e.lang;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="languages")
-class Lang {
+public class Lang {
 
 @Id
 @GeneratedValue(generator="inc")
@@ -22,7 +22,7 @@ class Lang {
      * Hibernate (JPA) uses it
      */
 @SuppressWarnings("unused")
-Lang (){}
+public Lang (){}
 
     public Lang(Integer id, String welcomeMsg, String code) {
         this.id = id;
@@ -33,7 +33,6 @@ Lang (){}
     public Integer getId() {
         return id;
     }
-
 
     public String getWelcomeMsg() {
         return welcomeMsg;

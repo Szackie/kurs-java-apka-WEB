@@ -12,6 +12,7 @@ public class App {
         var webapp = new WebAppContext();
         webapp.setResourceBase("src/main/webapp");
         webapp.setContextPath("/");
+        webapp.setInitParameter("org.eclipse.jetty.servlet.Default.maxCachedFiles","0");
         webapp.setConfigurations(new Configuration[]
                 {
                         new AnnotationConfiguration(),

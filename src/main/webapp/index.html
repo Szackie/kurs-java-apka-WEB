@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDoList</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css"
+          integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
+
+</head>
+<body>
+<div>
+    <style scoped="">
+        .button-success,
+        .button-secondary {
+            color: white;
+            border-radius: 4px;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-success {
+            background: rgb(28, 184, 65);
+            /* this is a green */
+        }
+
+
+    </style>
+
+<form id="welcomeForm" class="pure-form" style="width: 40%; margin:0 auto">
+    <input type="text" name="name" class="pure-input-rounded" placeholder="name"/>
+    <fieldset id = "langs"></fieldset>
+    <button id= btn class="button-success pure-button">Submit</button>
+</form>
+
+</div>
+<div id="welcome" style="width: 40%; margin: 0 auto"></div>
+<script>
+const API_URL='http://localhost:8080/api';
+const CODE_TO_EMOJI = {
+'pl':'        🇵🇱',
+'en':'        🇺🇸',
+'ger':'        ger'
+};
+fetch(`${API_URL}/langs`)
+.then(response => response.json())
+.then((langArr) => {
+/*
+tak wyglada obiekt:
+lang={
+id: number,
+code: string
+*/
+const checkboxes = langArr.map(l => `
+    <label for="checkbox-radio-option-three" class="pure-radio">
+        <input type="radio" id="checkbox-radio-option-three" name="lang" value="${l.id}" />
+        ${CODE_TO_EMOJI[l.code]}
+    </label>
+`).join('\n');
+document.getElementById('langs').innerHTML =   checkboxes;
+});
+const form = document.getElementById('welcomeForm');
+const div = document.getElementById('welcome');
+document.getElementById('btn').addEventListener('click',(event) => {
+event.preventDefault();
+
+const formObj = {
+name: name=form.elements.name.value,
+lang: lang=form.elements.lang.value
+};
+fetch(`${API_URL}?${new URLSearchParams(formObj)}`)
+.then(response => response.text())
+.then((text )=> {
+div.innerHTML = `
+<h1>${text}</h1>
+`;
+});
+});
+</script>
+</body>
+</html>

@@ -11,11 +11,11 @@ public class HibernateUtil {
     private HibernateUtil(){
     }
 
-    static SessionFactory getSessionFactory(){
+    public static SessionFactory getSessionFactory(){
         return sessionFactory;
     }
 
-        protected static SessionFactory buildSessionFactory(){
+        private static SessionFactory buildSessionFactory(){
         // A SessionFactory is set up once for an application!
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure() // configures settings from hibernate.cfg.xml
