@@ -15,26 +15,26 @@ import java.io.IOException;
 
 public class LangServlet extends HttpServlet {
 
-    private LangRepository repository;
+    private LangService langService;
     private ObjectMapper mapper;
 
     private final Logger logger = LoggerFactory.getLogger(LangServlet.class);
 
     @SuppressWarnings("unused")
     public LangServlet() {
-        this(new LangRepository(),new ObjectMapper());
+        this(new LangService(),new ObjectMapper());
     }
 
-    public LangServlet(LangRepository repository,ObjectMapper mapper) {
+    public LangServlet(LangService langService,ObjectMapper mapper) {
 
-        this.repository = repository;
+        this.langService = langService;
         this.mapper=mapper;
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Request goes from LangServlet" + getServletName());
-       resp.setContentType("application/json;charset=UTF-8");
-mapper.writeValue(resp.getOutputStream(),repository.findAll());
+        resp.setContentType("application/json;charset=UTF-8");
+        mapper.writeValue(resp.getOutputStream(),langService.findAll());
     }
 }

@@ -1,14 +1,11 @@
-package io.github.mat3e;
+package io.github.mat3e.lang;
 
-import io.github.mat3e.lang.Lang;
+
 
 class LangDTO {
-    private int id;
+    private Integer id;
     private String code;
 
-    LangDTO() {
-        this(new Lang());
-    }
     LangDTO(Lang lang) {
         this.id = lang.getId();
         this.code = lang.getCode();
