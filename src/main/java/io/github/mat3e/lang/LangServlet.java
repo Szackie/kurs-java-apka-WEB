@@ -33,7 +33,7 @@ public class LangServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.info("Request goes from LangServlet" + getServletName());
+        logger.info("Request goes from " + getServletName());
         resp.setContentType("application/json;charset=UTF-8");
         mapper.writeValue(resp.getOutputStream(),langService.findAll());
     }

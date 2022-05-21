@@ -1,7 +1,5 @@
 package io.github.mat3e.lang;
 
-
-
 class LangDTO {
     private Integer id;
     private String code;

@@ -22,12 +22,11 @@ class LangService {
 
     List<LangDTO> findAll(){
 
-        var result = langRepository
+        return langRepository
                 .findAll()
                 .stream()
                 .map(LangDTO::new)
                 .collect(toList());
-        return result;
     }
 
 }

@@ -1,6 +1,5 @@
 package io.github.mat3e.hello;
 
-import io.github.mat3e.hello.HelloService;
 import io.github.mat3e.lang.Lang;
 import io.github.mat3e.lang.LangRepository;
 import org.junit.Test;
@@ -20,7 +19,7 @@ public class ServiceTest {
         var mockRepository = returnNonExistingLang();
         var SUT = new HelloService(mockRepository);
 //        when
-        var result = SUT.ustalPowitanie(null,"-1");
+        var result = SUT.prepareGreeting(null,-1);
 
 //    then
         assertEquals(HelloService.FALLBACK_LANG.getWelcomeMsg()+DEFAULT_NAME, result);
@@ -40,7 +39,7 @@ public class ServiceTest {
         var mockRepository = alwaysReturningHelloRepository();
         var SUT = new HelloService(mockRepository);
 //        when
-        var result = SUT.ustalPowitanie(null,"-1");
+        var result = SUT.prepareGreeting(null,-1);
 
 //    then
         assertEquals(WELCOME+" "+HelloService.FALLBACK_NAME+"!", result);
@@ -53,7 +52,7 @@ public class ServiceTest {
         var SUT = new HelloService(mockRepository);
         String name="test";
 //        when
-        var result = SUT.ustalPowitanie(name,"-1");
+        var result = SUT.prepareGreeting(name,-1);
 
 //    then
         assertEquals(WELCOME+" "+name+"!", result);
@@ -65,23 +64,23 @@ public class ServiceTest {
         var mockRepository = fallbackLangIdRepository();
         var SUT = new HelloService(mockRepository);
 //        when
-        var result = SUT.ustalPowitanie(null,null);
+        var result = SUT.prepareGreeting(null,null);
 
 //    then
         assertEquals(FALLBACK_ID_WELCOME+" "+HelloService.FALLBACK_NAME+"!", result);
         }
-        @Test
-    public void test_ustalPowitanie_textLang_returnsFallbackIdLang() {
-        //given
-
-        var mockRepository = fallbackLangIdRepository();
-        var SUT = new HelloService(mockRepository);
-//        when
-        var result = SUT.ustalPowitanie(null,"abc");
-
-//    then
-        assertEquals(FALLBACK_ID_WELCOME+" "+HelloService.FALLBACK_NAME+"!", result);
-        }
+//        @Test
+//    public void test_ustalPowitanie_textLang_returnsFallbackIdLang() {
+//        //given
+//
+//        var mockRepository = fallbackLangIdRepository();
+//        var SUT = new HelloService(mockRepository);
+////        when
+//        var result = SUT.prepareGreeting(null,"abc");
+//
+////    then
+//        assertEquals(FALLBACK_ID_WELCOME+" "+HelloService.FALLBACK_NAME+"!", result);
+//        }
 
 
     private LangRepository fallbackLangIdRepository() {

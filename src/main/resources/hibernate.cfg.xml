@@ -6,6 +6,7 @@
   ~ See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
   -->
 <!DOCTYPE hibernate-configuration PUBLIC
+
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 
@@ -20,7 +21,7 @@
         <property name="connection.password"/>
 
         <!-- JDBC connection pool (use the built-in) -->
-        <property name="connection.pool_size">1</property>
+        <property name="connection.pool_size">3</property>
 
         <!-- SQL dialect -->
         <property name="dialect">org.hibernate.dialect.H2Dialect</property>
@@ -32,6 +33,7 @@
         <property name="hbm2ddl.auto">validate</property>
         <!-- Names the annotated entity class -->
         <mapping class="io.github.mat3e.lang.Lang"/>
+        <mapping class="io.github.mat3e.todo.Todo"/>
     </session-factory>
 
 </hibernate-configuration>
