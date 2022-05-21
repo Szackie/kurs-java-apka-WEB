@@ -1,4 +1,2 @@
-Wszystko do sekcji 5. włącznie.
-DB H2
-Flyway
-ORM Hibernate
+Button '-' deletes all checked(done) todos.
+Method deleteDoneTodo from JS doesn't work at all.

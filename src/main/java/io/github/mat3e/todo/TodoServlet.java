@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 
 @WebServlet(name="Todo Servlet",urlPatterns = "/api/todos/*")
@@ -66,6 +67,8 @@ mapper.writeValue(resp.getOutputStream(),todoRepository.addTodo(newTodo));
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+        for(Todo todo: todoRepository.findAll())
+        if(todo.isDone())
+            todoRepository.deleteTodo(todo.getId());
     }
 }

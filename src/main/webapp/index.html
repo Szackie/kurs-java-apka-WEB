@@ -20,12 +20,12 @@
         <fieldset>
             <input id="todoText" class="pure-input-rounded pure-input-2-3" placeholder="new TODO">
             <button id="addTodo" class="pure-button pure-button-primary">+</button>
+            <button id="deleteTodo" class="pure-button pure-button-primary">-</button>
         </fieldset>
         <fieldset id="allTodos"></fieldset>
     </form>
 </main>
-<script>
-  (function() {
+<script>(function() {
     const API_URL = 'http://localhost:8080/api';
     const TODO_API_URL = `${API_URL}/todos`;
 
@@ -34,6 +34,33 @@
     fetch(TODO_API_URL)
       .then(processOkResponse)
       .then(todos => todos.forEach(createNewTodo));
+
+// moje:
+
+    document.getElementById('deleteTodo').addEventListener('click', (event) => {
+      event.preventDefault();
+      fetch(TODO_API_URL, {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ text: todoText.value })
+      })
+        .then(processOkResponse)
+        .then(deleteDoneTodo)
+        .then(() => todoText.value = '')
+        .catch(console.warn);
+
+    });
+
+
+    function deleteDoneTodo() {
+        todoForm.remove();
+        document.getElementById('todoForm').display();
+      }
+
+// koniec moje
 
     document.getElementById('addTodo').addEventListener('click', (event) => {
       event.preventDefault();
@@ -49,6 +76,7 @@
         .then(createNewTodo)
         .then(() => todoText.value = '')
         .catch(console.warn);
+
     });
 
 
@@ -67,6 +95,7 @@
             .then(updatedTodo => checkbox.checked = !!updatedTodo.done)
             .catch(console.warn);
         });
+
       label.appendChild(checkbox);
       label.appendChild(document.createTextNode(` ${todo.text}`));
       document.getElementById('allTodos').appendChild(label);

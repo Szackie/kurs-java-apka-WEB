@@ -32,6 +32,17 @@ public class TodoRepository {
         return todo;
 
     }
+        public void deleteTodo(Integer id){
+        var session= HibernateUtil.getSessionFactory().openSession();
+        var transaction=session.beginTransaction();
+
+        var todo = session.load(Todo.class,id);
+        session.delete("todos",todo);
+
+
+        transaction.commit();
+        session.close();
+    }
 
 public List<Todo> findAll(){
         var session = HibernateUtil.getSessionFactory().openSession();
